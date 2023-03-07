@@ -8,5 +8,4 @@
     }
 
     echo 'Seu login funcionou :-)';
-    echo 'teste'
 ?>
