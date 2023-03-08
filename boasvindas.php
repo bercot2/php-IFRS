@@ -8,7 +8,7 @@
         die;
     }
 
-    echo 'Seu login funcionou :-)';
+    echo 'Seu login funcionou :-) <br><br>';
 ?>
 
 <p>
