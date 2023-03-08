@@ -11,6 +11,10 @@
         case 2:
             echo 'Você não está autenticado!';
             break;
+        
+        case 3:
+               echo 'Saiu com Sucesso!'; 
+            break;
     }
 ?>
 
