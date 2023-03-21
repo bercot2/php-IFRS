@@ -1,16 +1,17 @@
 <?php
+    # boasvindas.php
+    require('verifica_autenticacao.php');
+    require('css.php');
 
-    #boasvindas.php
-    session_start();
-    
-    if (!isset($_SESSION['usuario'])){
-        header('location:form.php?erro=2');
-        die;
-    }
-
-    echo 'Seu login funcionou :-) <br><br>';
+    echo 'Seu login funcionou :-)<br>';
 ?>
-
 <p>
+    <?php
+    if ($_SESSION['admin']) {
+        ?>
+        <a href="usuarios.php">Usuários</a>
+        <?php
+    }
+    ?>
     <a href="logout.php">Sair</a>
 </p>

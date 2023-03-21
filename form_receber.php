@@ -1,25 +1,42 @@
 <?php
-
-    $senha123 = '$2y$12$AXfsmrkhOVFz7L1WgfIXfu/2J7ihYHi/8wUcAgTjuuPtQADM/WR5y';
-
     # form_receber.php
+    require('pdo.inc.php');
+    
+    // Exemplo de prática não tão boa
+    // if (!isset($_POST['usuario']) || 
+    // !isset($_POST['senha'])) {
+    //     echo 'Envie o form';
+    //     die;
+    // }
+
+    // Nullish coalescing operator
     $usuario = $_POST['usuario'] ?? false;
     $senha = $_POST['senha'] ?? false;
 
-    // $senha_crypto = password_hash('123', PASSWORD_BCRYPT, ['cost' => 12]);
+    // Prepara a consulta
+    $sql = $pdo->prepare('SELECT * FROM usuarios WHERE username = ? AND active = 1');
 
-    // echo $senha_crypto;
+    // Anexa a variável $usuario no parâmetro 1
+    $sql->bindParam(1, $usuario, PDO::PARAM_STR);
 
-    if ($usuario == 'rafael' && password_verify($senha, $senha123)) {
-        //Autenticação OK
+    // Roda a consulta no banco
+    $sql->execute();
+
+    // Busca os dados no banco
+    $dados = $sql->fetch(PDO::FETCH_ASSOC);
+
+    if ($sql->rowCount() == 1
+        &&
+        password_verify($senha, $dados['password'])) {
+        // Autenticação OK
         session_start();
-        
         $_SESSION['usuario'] = $usuario;
+        $_SESSION['admin'] = $dados['admin'];
 
-        echo '<p>Autenticado com sucesso</p>';
         header('location:boasvindas.php');
         die;
     } else {
+        // Autenticação falhou
         header('location:form.php?erro=1');
         die;
     }
