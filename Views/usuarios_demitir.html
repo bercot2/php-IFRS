@@ -1,0 +1,16 @@
+{% extends "_base.html" %}
+
+{% block conteudo %}
+    <h1 style="color:red; background-color:yellow">
+        PERIGO
+    </h1>
+
+    <p>Tem certeza de que quer fazer isso?</p>
+
+    <form actions="usuarios_demitir.php" method="POST">
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="submit" value="apaga logo esse negócio">
+    </form>
+
+    <p><a href="usuarios_novo.php"> Eita! Cliquei errado. Cancela.</a></p>
+{% endblock %}
